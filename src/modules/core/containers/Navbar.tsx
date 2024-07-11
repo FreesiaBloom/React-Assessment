@@ -22,14 +22,18 @@ function Navbar() {
               <a href="#" className="nav-link">Home</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">User</a>
+              <a href="#" className="nav-link">About</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Admin Dashboard</a>
+              <a href="#" className="nav-link">Services</a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link">Contact</a>
             </li>
           </ul>
           <div className="navbar-actions">
             <a href="#" className="btn btn-black-outline ml-5 mr-2 hvr-grow">Login</a>
+            /
             <a href="#" className="btn btn-black-outline ml-5 mr-2 hvr-grow">Log out</a>
           </div>
         </div>
