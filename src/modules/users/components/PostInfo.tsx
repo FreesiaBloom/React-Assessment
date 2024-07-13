@@ -31,14 +31,7 @@ const PostInfo: React.FC = () => {
 
   useEffect(() => {
     if (posts) {
-      navigate(location.pathname, {
-        replace: true,
-        state: {
-          breadcrumb: {
-            pageName: `${selectedUser?.id}/${selectedPost?.id}`,
-          },
-        },
-      });
+    //   navigate(location.pathname);
     }
   }, [posts]);
 

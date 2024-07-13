@@ -28,10 +28,7 @@ const UserInfo: React.FC = () => {
 
   useEffect(() => {
     if (posts.length > 0) {
-      navigate(location.pathname, {
-        replace: true,
-        state: { breadcrumb: { pageName: `${selectedUser?.username}` } },
-      });
+    //   navigate(location.pathname);
     }
   }, [posts]);
 

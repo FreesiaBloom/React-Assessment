@@ -1,0 +1,18 @@
+.breadcrumbs {
+    ul {
+        display: flex;
+        align-items: center;
+
+        li {
+            display: flex;
+            align-items: center;
+            p {
+                margin: 0;
+            }
+
+            .arrow {
+                margin: 0 .5rem;
+            }
+        }
+    }
+}
