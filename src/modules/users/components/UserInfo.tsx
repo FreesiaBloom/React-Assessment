@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Post } from "../../core/utils/interfaces";
 
 const UserInfo: React.FC = () => {
-  const [posts, setPosts] = useState([]);
+  const [ error, setError ] = useState<boolean>(false);
+  const [ posts, setPosts ] = useState([]);
   const { userId } = useParams();
 
   const navigate = useNavigate();
@@ -14,12 +15,18 @@ const UserInfo: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const postsResponse = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-      );
-      const postData = await postsResponse.json();
-      setPosts(postData);
-    })();
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+        if (response.ok) {
+          const postData = await response.json();
+          setPosts(postData);
+        } else {
+          setError(true);
+        }
+      } catch {
+        setError(true);
+      }
+    })()
   }, [userId]);
 
   return (
@@ -44,7 +51,13 @@ const UserInfo: React.FC = () => {
               </tbody>
             </table>
           ) : (
-            <div>Loading...</div>
+            <>
+              {error ? (
+                <div className="text-danger">HTTP ERROR</div>
+              ) : (
+                <div>Loading...</div>
+              )}
+            </>
           )}
         </div>
       </div>

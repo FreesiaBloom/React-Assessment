@@ -1,7 +1,13 @@
 
-export interface State { 
+export interface UserState { 
     data: {
         userData: User[];
+    }
+}
+
+export interface ErrorState { 
+    data: {
+        dataError: User[];
     }
 }
 

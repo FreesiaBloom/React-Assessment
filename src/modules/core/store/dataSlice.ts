@@ -15,8 +15,8 @@ const dataSlice = createSlice({
     },
 
     setDataError(state, action) {
-      const { errorFlag } = action;
-      state.dataError = errorFlag;
+      const { payload } = action;
+      state.dataError = payload;
     }
   }
 });

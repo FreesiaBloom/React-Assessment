@@ -3,19 +3,25 @@ import { useParams } from "react-router-dom";
 import { Post } from "../../core/utils/interfaces";
 
 const PostInfo: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [ error, setError ] = useState<boolean>(false);
+  const [ posts, setPosts ] = useState<Post[]>([]);
 
   const { postId } = useParams();
 
   useEffect(() => {
     (async () => {
-      const postsResponse = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?id=${postId}`
-      );
-      const postData = await postsResponse.json();
-      // api always returns array, but this call should always return this one selected post
-      setPosts(postData);
-    })();
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts?id=${postId}`);
+        if (response.ok) {
+          const postData = await response.json();
+          setPosts(postData);
+        } else {
+          setError(true);
+        }
+      } catch {
+        setError(true);
+      }
+    })()
   }, [postId]);
 
   return (
@@ -34,7 +40,13 @@ const PostInfo: React.FC = () => {
               ))}
             </>
           ) : (
-            <div>Loading...</div>
+            <>
+              {error ? (
+                <div className="text-danger">HTTP ERROR</div>
+              ) : (
+                <div>Loading...</div>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -43,3 +55,4 @@ const PostInfo: React.FC = () => {
 };
 
 export default PostInfo;
+

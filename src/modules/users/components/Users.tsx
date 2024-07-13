@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { State, User } from "../../core/utils/interfaces";
+import { ErrorState,  User, UserState } from "../../core/utils/interfaces";
 
 const Users: React.FC = () => {
   const navigate = useNavigate();
-  const { userData: users } = useSelector((state: State) => state.data);
+  const { userData: users } = useSelector((state: UserState) => state.data);
+  const { dataError: error } = useSelector((state: ErrorState) => state.data);
 
   function handleRowClick(userId: number) {
     navigate(`${userId}`);
@@ -36,7 +37,13 @@ const Users: React.FC = () => {
               </tbody>
             </table>
           ) : (
-            <div>Loading...</div>
+            <>
+              {error ? (
+                <div className="text-danger">HTTP ERROR</div>
+              ) : (
+                <div>Loading...</div>
+              )}
+            </>
           )}
         </div>
       </div>
