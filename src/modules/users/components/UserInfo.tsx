@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Post, User } from "../../core/utils/interfaces";
+import { useNavigate, useParams } from "react-router-dom";
+import { Post } from "../../core/utils/interfaces";
 
 const UserInfo: React.FC = () => {
-  const { userData: users } = useSelector((state) => state.data);
   const [posts, setPosts] = useState([]);
   const { userId } = useParams();
-  const selectedUser = users.find((user: User) => user.id === Number(userId));
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   function handleRowClick(postId: number) {
@@ -25,12 +21,6 @@ const UserInfo: React.FC = () => {
       setPosts(postData);
     })();
   }, [userId]);
-
-  useEffect(() => {
-    if (posts.length > 0) {
-    //   navigate(location.pathname);
-    }
-  }, [posts]);
 
   return (
     <section>

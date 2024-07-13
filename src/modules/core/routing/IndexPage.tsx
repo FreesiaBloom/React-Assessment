@@ -15,21 +15,15 @@ export default function IndexPage() {
     (async () => {
       try {
         const userRequest = fetch("https://jsonplaceholder.typicode.com/users");
-        const postsRequest = fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
 
-        const [userResponse, postResponse] = await Promise.all([
-          userRequest,
-          postsRequest
+        const [userResponse] = await Promise.all([
+          userRequest
         ]);
-        const [userData, postData] = await Promise.all([
-          userResponse.json(),
-          postResponse.json()
+        const [userData] = await Promise.all([
+          userResponse.json()
         ]);
 
         dispatch(dataActions.setUserData(userData));
-        dispatch(dataActions.setPostData(postData));
       } catch (error) {
         dispatch(dataActions.setDataError(true));
       }

@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../core/utils/interfaces";
+import { State, User } from "../../core/utils/interfaces";
 
 const Users: React.FC = () => {
   const navigate = useNavigate();
-  const { userData: users } = useSelector((state) => state.data);
+  const { userData: users } = useSelector((state: State) => state.data);
 
   function handleRowClick(userId: number) {
     navigate(`${userId}`);

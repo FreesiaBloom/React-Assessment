@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userData: [],
-  postData: [],
   dataError: false
 };
 
@@ -13,11 +12,6 @@ const dataSlice = createSlice({
     setUserData(state, action) {
       const { payload } = action;
       state.userData = payload;
-    },
-
-    setPostData(state, action) {
-      const { payload } = action;
-      state.postData = payload;
     },
 
     setDataError(state, action) {

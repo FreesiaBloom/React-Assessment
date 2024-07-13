@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Post, User } from "../../core/utils/interfaces";
+import { useParams } from "react-router-dom";
+import { Post } from "../../core/utils/interfaces";
 
 const PostInfo: React.FC = () => {
-  const { userData: users } = useSelector((state) => state.data);
-  const { postData: userPosts } = useSelector((state) => state.data);
   const [posts, setPosts] = useState<Post[]>([]);
 
-  const { userId } = useParams();
   const { postId } = useParams();
-  const selectedUser = users.find((user: User) => user.id === Number(userId));
-  const selectedPost = userPosts.find(
-    (post: Post) => post.id === Number(postId)
-  );
-
-  const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -28,12 +17,6 @@ const PostInfo: React.FC = () => {
       setPosts(postData);
     })();
   }, [postId]);
-
-  useEffect(() => {
-    if (posts) {
-    //   navigate(location.pathname);
-    }
-  }, [posts]);
 
   return (
     <section>

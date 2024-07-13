@@ -1,4 +1,10 @@
 
+export interface State { 
+    data: {
+        userData: User[];
+    }
+}
+
 export interface Crumb {
     label: string;
     to: string;
