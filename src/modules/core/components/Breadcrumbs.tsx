@@ -13,7 +13,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumbs = [] }) => {
                 <li key={index}>
                   {breadcrumbs.length - index > 1 ? (
                     <>
-                      <Link to={crumb.to}>{crumb.label}</Link>
+                      <Link data-testid={crumb.label} to={crumb.to}>{crumb.label}</Link>
                       <p className="arrow">&gt;</p>
                     </>
                   ) : (
