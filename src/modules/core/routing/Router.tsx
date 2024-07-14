@@ -4,17 +4,32 @@ import {
   Route,
 } from "react-router-dom";
 import IndexPage from "./IndexPage";
-import Users from "../../users/components/Users";
-import UserInfo from "../../users/components/UserInfo";
-import PostInfo from "../../users/components/PostInfo";
+import { lazy, Suspense } from "react";
+import Loading from "../containers/Loading";
+
+const LazyUsers = lazy(() => import("../../users/components/Users"));
+const LazyUserInfo = lazy(() => import("../../users/components/UserInfo"));
+const LazyPostInfo = lazy(() => import("../../users/components/PostInfo"));
+
+const getComponent = (component: any) => {
+  return <Suspense fallback={<Loading />}>{component}</Suspense>;
+};
 
 function Routes() {
   return (
     <Route id="home" element={<IndexPage />}>
-      <Route index element={<Users />} />
-      <Route id="userInfo" path=":userId" element={<UserInfo />} />
-      <Route id="postInfo" path=":userId/:postId" element={<PostInfo />} />
-      <Route path="*" element={<Users />} />
+      <Route index element={getComponent(<LazyUsers />)} />
+      <Route
+        id="userInfo"
+        path=":userId"
+        element={getComponent(<LazyUserInfo />)}
+      />
+      <Route
+        id="postInfo"
+        path=":userId/:postId"
+        element={getComponent(<LazyPostInfo />)}
+      />
+      <Route path="*" element={getComponent(<LazyUsers />)} />
     </Route>
   );
 }

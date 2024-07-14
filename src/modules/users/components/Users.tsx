@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ErrorState,  User, UserState } from "../../core/utils/interfaces";
+import { ErrorState, User, UserState } from "../../core/utils/interfaces";
 
 const Users: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +15,32 @@ const Users: React.FC = () => {
     <section>
       <div className="container">
         <div className="row table-responsive-md">
-          {users && users.length > 0 ? (
+          {error ? (
+            <div className="text-danger">HTTP ERROR</div>
+          ) : (
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>UserName</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users?.map((user: User) => (
+                  <tr key={user.id} onClick={() => handleRowClick(user.id)}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          {/* {users && users.length > 0 ? (
             <table className="table table-hover">
               <thead>
                 <tr>
@@ -38,13 +63,11 @@ const Users: React.FC = () => {
             </table>
           ) : (
             <>
-              {error ? (
+              {error && (
                 <div className="text-danger">HTTP ERROR</div>
-              ) : (
-                <div>Loading...</div>
               )}
             </>
-          )}
+          )} */}
         </div>
       </div>
     </section>

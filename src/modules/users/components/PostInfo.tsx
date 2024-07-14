@@ -28,7 +28,9 @@ const PostInfo: React.FC = () => {
     <section>
       <div className="container">
         <div className="row table-responsive-md">
-          {posts && posts.length > 0 ? (
+          {error ? (
+            <div className="text-danger">HTTP ERROR</div>
+          ) : (
             <>
               {posts.map((post: Post) => (
                 <ul className="list" key={post.id}>
@@ -38,14 +40,6 @@ const PostInfo: React.FC = () => {
                   <li>{post.body}</li>
                 </ul>
               ))}
-            </>
-          ) : (
-            <>
-              {error ? (
-                <div className="text-danger">HTTP ERROR</div>
-              ) : (
-                <div>Loading...</div>
-              )}
             </>
           )}
         </div>
