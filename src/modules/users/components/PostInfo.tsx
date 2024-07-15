@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Post } from "../../core/utils/interfaces";
 
-const PostInfo: React.FC = () => {
+const PostInfo: FC = () => {
   const [ error, setError ] = useState<boolean>(false);
   const [ posts, setPosts ] = useState<Post[]>([]);
 

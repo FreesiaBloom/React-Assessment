@@ -1,4 +1,4 @@
-function Navbar() {
+const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-white main-nav py-3">
       <div className="container">

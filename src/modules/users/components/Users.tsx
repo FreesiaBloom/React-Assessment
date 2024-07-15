@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ErrorState, User, UserState } from "../../core/utils/interfaces";
+import { FC } from "react";
 
-const Users: React.FC = () => {
+const Users: FC = () => {
   const navigate = useNavigate();
   const { userData: users } = useSelector((state: UserState) => state.data);
   const { dataError: error } = useSelector((state: ErrorState) => state.data);

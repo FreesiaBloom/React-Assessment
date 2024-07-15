@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { BreadcrumbProps } from "../utils/props";
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumbs = [] }) => {
+const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumbs = [] }) => {
   return (
     <nav aria-label="breadcrumb" className="breadcrumbs">
       <div className="container">
