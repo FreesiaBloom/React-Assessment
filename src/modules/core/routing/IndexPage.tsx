@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { dataActions } from "../store/dataSlice";
 import Navbar from "../containers/Navbar";
 import Footer from "../containers/Footer";
 import Breadcrumb from "../components/Breadcrumbs";
 import useBreadcrumb from "../hooks/useBreadcrumbs";
+import { useAppDispatch } from "../hooks/readux-hooks";
 
 export default function IndexPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const breadcrumbs = useBreadcrumb();
 
   useEffect(() => {

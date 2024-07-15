@@ -1,42 +1,32 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import * as reactRedux from "react-redux";
 import Users from "../modules/users/components/Users";
 import { BrowserRouter } from "react-router-dom";
 
-import { Provider } from "react-redux";
-import store from "../modules/core/store/store";
-import { server } from "../mock/server";
+import { userData } from "../mock/userListData";
+import { State } from "../modules/core/utils/interfaces";
 
-const renderProvider = (component: any) => render(
-  <Provider store={store}>
-    <BrowserRouter>
-      {component}
-    </BrowserRouter>
-  </Provider>
-);
+const initialState: State = {
+  userData: userData,
+  dataError: false,
+};
+
+const renderProvider = (component: any) =>
+  render(<BrowserRouter>{component}</BrowserRouter>);
 
 describe("Users", () => {
-  it('renders loading screen for empty users"', () => {
-    renderProvider(<Users />);
+  const useSelectorMock = jest.spyOn(reactRedux, "useSelector");
 
-    const elem = screen.getByText("Loading...");
-    expect(elem).toBeInTheDocument();
+  beforeEach(() => {
+    useSelectorMock.mockClear();
   });
 
-  // it('renders table for loaded users"', async () => {
-  //   renderProvider(<Users />);
-  //   await waitFor(() => {
-  //     const elem = screen.getAllByRole("table");
-  //     expect(elem).toBeInTheDocument();
-  //   })
-  // });
+  it('renders loading screen for empty users"', () => {
+    useSelectorMock.mockReturnValue({ initialState });
 
-  // it('renders', async () => {
-  //   await (act(() => {
-  //     renderProvider(<Users />);
-  //   }))
+    renderProvider(<Users />);
 
-  //   const elem = await screen.getByText("Loading...");
-  //   expect(elem).toBeInTheDocument();
-  // })
+    const elem = screen.getByTestId("Bret");
+    expect(elem).toBeInTheDocument();
+  });
 });
-

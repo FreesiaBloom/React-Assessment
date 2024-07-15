@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { State } from '../utils/interfaces'
 
-const initialState = {
+const initialState: State = {
   userData: [],
   dataError: false
 };

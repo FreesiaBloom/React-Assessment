@@ -5,9 +5,14 @@ export interface UserState {
     }
 }
 
+export interface State { 
+    userData: User[];
+    dataError: boolean;
+}
+
 export interface ErrorState { 
     data: {
-        dataError: User[];
+        dataError: boolean;
     }
 }
 

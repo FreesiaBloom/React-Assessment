@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ErrorState, User, UserState } from "../../core/utils/interfaces";
+import { useAppSelector } from "../../core/hooks/readux-hooks";
 
 const Users: React.FC = () => {
   const navigate = useNavigate();
-  const { userData: users } = useSelector((state: UserState) => state.data);
-  const { dataError: error } = useSelector((state: ErrorState) => state.data);
+  const { userData: users } = useAppSelector((state: UserState) => state.data || {});
+  const { dataError: error } = useAppSelector((state: ErrorState) => state.data || {});
 
   function handleRowClick(userId: number) {
     navigate(`${userId}`);
