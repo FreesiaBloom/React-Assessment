@@ -5,7 +5,7 @@ import { Crumb } from "../utils/interfaces";
   const { pathname } = useLocation();
   const pathnames = pathname.split("/").filter((x) => x);
 
-  function createBreadcrumbList() {
+  function createBreadcrumbList(): Crumb[] {
     const breadcrumb: Crumb[] = [];
 
     if (pathnames.length > 0) {

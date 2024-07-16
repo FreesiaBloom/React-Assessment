@@ -6,10 +6,11 @@ import Navbar from "../containers/Navbar";
 import Footer from "../containers/Footer";
 import Breadcrumb from "../components/Breadcrumbs";
 import useBreadcrumb from "../hooks/useBreadcrumbs";
+import { Crumb } from "../utils/interfaces";
 
-export default function IndexPage() {
+const IndexPage = () => {
   const dispatch = useDispatch();
-  const breadcrumbs = useBreadcrumb();
+  const breadcrumbs: Crumb[] = useBreadcrumb();
 
   useEffect(() => {
     (async () => {
@@ -30,9 +31,11 @@ export default function IndexPage() {
   return (
     <div className="App">
       <Navbar />
-      <Breadcrumb breadcrumbs={breadcrumbs} />
+      {(breadcrumbs && breadcrumbs.length > 0) && <Breadcrumb breadcrumbs={breadcrumbs} />}
       <Outlet />
       <Footer />
     </div>
   );
 }
+
+export default IndexPage;
