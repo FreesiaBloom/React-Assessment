@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorState, User, UserState } from "../../core/utils/interfaces";
 import { useAppSelector } from "../../core/hooks/readux-hooks";
 
-const Users: React.FC = () => {
+const Users: FC = () => {
   const navigate = useNavigate();
   const { userData: users } = useAppSelector((state: UserState) => state.data || {});
   const { dataError: error } = useAppSelector((state: ErrorState) => state.data || {});
@@ -39,35 +40,6 @@ const Users: React.FC = () => {
               </tbody>
             </table>
           )}
-
-          {/* {users && users.length > 0 ? (
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>UserName</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users?.map((user: User) => (
-                  <tr key={user.id} onClick={() => handleRowClick(user.id)}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <>
-              {error && (
-                <div className="text-danger">HTTP ERROR</div>
-              )}
-            </>
-          )} */}
         </div>
       </div>
     </section>

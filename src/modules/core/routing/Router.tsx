@@ -15,7 +15,7 @@ const getComponent = (component: any) => {
   return <Suspense fallback={<Loading />}>{component}</Suspense>;
 };
 
-function Routes() {
+const Routes = () => {
   return (
     <Route id="home" element={<IndexPage />}>
       <Route index element={getComponent(<LazyUsers />)} />

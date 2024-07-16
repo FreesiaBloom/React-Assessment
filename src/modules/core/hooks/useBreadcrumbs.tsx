@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { Crumb } from "../utils/interfaces";
 
-export default function useBreadcrumb() {
+ const  useBreadcrumb = () => {
   const { pathname } = useLocation();
   const pathnames = pathname.split("/").filter((x) => x);
 
-  function createBreadcrumbList() {
+  function createBreadcrumbList(): Crumb[] {
     const breadcrumb: Crumb[] = [];
 
     if (pathnames.length > 0) {
@@ -25,3 +25,5 @@ export default function useBreadcrumb() {
 
   return createBreadcrumbList();
 }
+
+export default useBreadcrumb;
