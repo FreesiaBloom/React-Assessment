@@ -6,7 +6,7 @@ export interface UserState {
 
 export interface ErrorState {
   data: {
-    dataError: User[];
+    dataError: boolean;
   };
 }
 

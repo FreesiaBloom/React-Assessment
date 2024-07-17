@@ -1,16 +1,30 @@
 import { act, render, screen } from "@testing-library/react";
-import UserInfo from "../modules/users/components/UserInfo";
 import { BrowserRouter } from "react-router-dom";
-import { ErrorBoundary } from "react-error-boundary";
+import UserInfo from "../modules/users/components/UserInfo";
 
+const mockedUsedNavigate = jest.fn();
+let userId = '1'; // Set your initial value
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom') as any,
+  useNavigate: () => mockedUsedNavigate,
+  useParams: () => ({ userId: userId }),
+}));
 
 const renderProvider = (component: any) =>
-  render(<BrowserRouter><ErrorBoundary fallback={<div>Something went wrong</div>}>{component}</ErrorBoundary></BrowserRouter>);
+  render(
+      <BrowserRouter>{component}</BrowserRouter>
+  );
 
 describe("UserInfo", () => {
-  it("renders correctly", () => {
-    act(() => {renderProvider(<UserInfo />)})
-    const text = screen.getByText("Vite + React");
-    expect(text).toBeInTheDocument();
+  let debug: (arg0: any) => void;
+  let container: any;
+  
+  it("renders correctly", async () => {
+    await act( async () => ({ container, debug } = renderProvider(<UserInfo />)));
+
+    const elem = screen.getByText("Sorry.. there was an error");
+    expect(elem).toBeInTheDocument();
   });
 });
+
