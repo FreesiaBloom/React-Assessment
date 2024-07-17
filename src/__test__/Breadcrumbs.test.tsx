@@ -17,6 +17,12 @@ const renderProvider = (component: any) =>
   render(<BrowserRouter>{component}</BrowserRouter>);
 
 describe("Breadcrumbs", () => {
+  it("renders empty component for no breadcrumbs", () => {
+    const { container } = renderProvider(<Breadcrumb breadcrumbs={[]} />);
+
+    expect(container.innerHTML).toBe("");
+  });
+
   it("renders correctly for Home view", () => {
     renderProvider(<Breadcrumb breadcrumbs={breadcrumbsHome} />);
     const home = screen.getByText("Home");
@@ -28,8 +34,8 @@ describe("Breadcrumbs", () => {
       <Breadcrumb breadcrumbs={breadcrumbsUserInfo} />
     );
     
-    const userId = screen.getByText("1");
     const homeLInk = screen.getByRole('link', { name: /Home/i });
+    const userId = screen.getByText(breadcrumbsUserInfo[1].label);
 
     expect(homeLInk.getAttribute('href')).toBe('/')
     expect(userId).toBeInTheDocument();
@@ -40,12 +46,12 @@ describe("Breadcrumbs", () => {
       <Breadcrumb breadcrumbs={breadcrumbsPostInfo} />
     );
     
-    const userId = screen.getByText("2");
     const homeLInk = screen.getByRole('link', { name: /Home/i });
-    const userLInk = screen.getByRole('link', { name: /1/i });
+    const userId = screen.getByRole('link', { name: /1/i });
+    const postId = screen.getByText(breadcrumbsPostInfo[2].label);
 
     expect(homeLInk.getAttribute('href')).toBe('/')
-    expect(userLInk.getAttribute('href')).toBe('/1')
-    expect(userId).toBeInTheDocument();
+    expect(userId.getAttribute('href')).toBe('/1')
+    expect(postId).toBeInTheDocument();
   });
 });

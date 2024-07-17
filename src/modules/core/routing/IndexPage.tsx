@@ -5,11 +5,11 @@ import Navbar from "../containers/Navbar";
 import Footer from "../containers/Footer";
 import Breadcrumb from "../components/Breadcrumbs";
 import useBreadcrumb from "../hooks/useBreadcrumbs";
-import { useAppDispatch } from "../hooks/readux-hooks";
 import { Crumb } from "../utils/interfaces";
+import { useDispatch } from "react-redux";
 
 const IndexPage = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const breadcrumbs: Crumb[] = useBreadcrumb();
 
   useEffect(() => {

@@ -4,14 +4,14 @@ import {
   Route,
 } from "react-router-dom";
 import IndexPage from "./IndexPage";
-import { lazy, Suspense } from "react";
+import { lazy, ReactElement, Suspense } from "react";
 import Loading from "../containers/Loading";
 
 const LazyUsers = lazy(() => import("../../users/components/Users"));
 const LazyUserInfo = lazy(() => import("../../users/components/UserInfo"));
 const LazyPostInfo = lazy(() => import("../../users/components/PostInfo"));
 
-const getComponent = (component: any) => {
+const getComponent = (component: ReactElement<unknown>) => {
   return <Suspense fallback={<Loading />}>{component}</Suspense>;
 };
 
