@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Post } from "../../core/utils/interfaces";
-import { ErrorBoundary } from "react-error-boundary";
 
 const UserInfo: FC = () => {
   const [error, setError] = useState<boolean>(false);
@@ -12,6 +11,10 @@ const UserInfo: FC = () => {
 
   function handleRowClick(postId: number) {
     navigate(`${postId}`);
+  }
+
+  if (error) {
+    throw new Error("UserInfo, something went wrong!");
   }
 
   useEffect(() => {
@@ -33,34 +36,32 @@ const UserInfo: FC = () => {
   }, [userId]);
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <section>
-        <div className="container">
-          <div className="row table-responsive-md">
-            {error ? (
-              <div className="text-danger">HTTP ERROR</div>
-            ) : (
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Title</th>
+    <section>
+      <div className="container">
+        <div className="row table-responsive-md">
+          {error ? (
+            <div className="text-danger">HTTP ERROR</div>
+          ) : (
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                {posts?.map((post: Post) => (
+                  <tr key={post.id} onClick={() => handleRowClick(post.id)}>
+                    <td>{post.id}</td>
+                    <td>{post.title}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {posts?.map((post: Post) => (
-                    <tr key={post.id} onClick={() => handleRowClick(post.id)}>
-                      <td>{post.id}</td>
-                      <td>{post.title}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
-      </section>
-    </ErrorBoundary>
+      </div>
+    </section>
   );
 };
 
