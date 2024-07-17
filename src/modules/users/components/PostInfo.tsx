@@ -3,15 +3,21 @@ import { useParams } from "react-router-dom";
 import { Post } from "../../core/utils/interfaces";
 
 const PostInfo: FC = () => {
-  const [ error, setError ] = useState<boolean>(false);
-  const [ posts, setPosts ] = useState<Post[]>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const { postId } = useParams();
+
+  if (error) {
+    throw new Error("PostInfo, something went wrong!");
+  }
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/posts?id=${postId}`);
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/posts?id=${postId}`
+        );
         if (response.ok) {
           const postData = await response.json();
           setPosts(postData);
@@ -21,27 +27,21 @@ const PostInfo: FC = () => {
       } catch {
         setError(true);
       }
-    })()
+    })();
   }, [postId]);
 
   return (
     <section>
       <div className="container">
         <div className="row table-responsive-md">
-          {error ? (
-            <div className="text-danger">HTTP ERROR</div>
-          ) : (
-            <>
-              {posts.map((post: Post) => (
-                <ul className="list" key={post.id}>
-                  <li>
-                    <strong>{post.title}</strong>
-                  </li>
-                  <li>{post.body}</li>
-                </ul>
-              ))}
-            </>
-          )}
+          {posts.map((post: Post) => (
+            <ul className="list" key={post.id}>
+              <li>
+                <strong>{post.title}</strong>
+              </li>
+              <li>{post.body}</li>
+            </ul>
+          ))}
         </div>
       </div>
     </section>
@@ -49,4 +49,3 @@ const PostInfo: FC = () => {
 };
 
 export default PostInfo;
-

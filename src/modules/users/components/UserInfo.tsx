@@ -13,6 +13,10 @@ const UserInfo: FC = () => {
     navigate(`${postId}`);
   }
 
+  if (error) {
+    throw new Error('UserInfo, something went wrong!');
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -35,26 +39,22 @@ const UserInfo: FC = () => {
     <section>
       <div className="container">
         <div className="row table-responsive-md">
-          {error ? (
-            <div className="text-danger">HTTP ERROR</div>
-          ) : (
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Title</th>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts?.map((post: Post) => (
+                <tr key={post.id} onClick={() => handleRowClick(post.id)}>
+                  <td>{post.id}</td>
+                  <td>{post.title}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {posts?.map((post: Post) => (
-                  <tr key={post.id} onClick={() => handleRowClick(post.id)}>
-                    <td>{post.id}</td>
-                    <td>{post.title}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

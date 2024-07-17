@@ -6,13 +6,18 @@ import {
 import IndexPage from "./IndexPage";
 import { lazy, Suspense } from "react";
 import Loading from "../containers/Loading";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const LazyUsers = lazy(() => import("../../users/components/Users"));
 const LazyUserInfo = lazy(() => import("../../users/components/UserInfo"));
 const LazyPostInfo = lazy(() => import("../../users/components/PostInfo"));
 
 const getComponent = (component: any) => {
-  return <Suspense fallback={<Loading />}>{component}</Suspense>;
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<Loading />}>{component}</Suspense>
+    </ErrorBoundary>
+  );
 };
 
 const Routes = () => {
@@ -32,7 +37,7 @@ const Routes = () => {
       <Route path="*" element={getComponent(<LazyUsers />)} />
     </Route>
   );
-}
+};
 
 const router = createBrowserRouter(createRoutesFromElements(Routes()));
 export default router;
