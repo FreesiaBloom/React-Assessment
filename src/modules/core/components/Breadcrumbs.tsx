@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BreadcrumbProps } from "../utils/props";
 
 const Breadcrumb: FC<BreadcrumbProps> = memo(({ breadcrumbs = [] }) => {
+  if (!breadcrumbs || breadcrumbs.length === 0) return (null);
   return (
     <nav aria-label="breadcrumb" className="breadcrumbs">
       <div className="container">
